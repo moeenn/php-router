@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SOL5;
 
+use SOL5\Router\Middleware\MiddlewareInterface;
 use \Exception;
 
 class Router
@@ -83,7 +84,7 @@ class Router
    *  return response in case of an \Exception
    * 
    */
-  private function errorResponse(Exception $error): void
+  private function errorResponse(Exception &$error): void
   {
     $errorResponse = new Response([
       'message' => $error->getMessage(),
@@ -99,7 +100,7 @@ class Router
    *  in the order they were registered
    * 
    */
-  public function registerMiddleware($middleware): void
+  public function registerMiddleware(MiddlewareInterface &$middleware): void
   {
     if (!in_array($middleware, $this->m_middlewares)) {
       array_push($this->m_middlewares, $middleware);
