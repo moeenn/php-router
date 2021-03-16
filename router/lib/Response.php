@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SOL5;
+namespace SOL5\Router\HTTP;
 
 class Response
 {

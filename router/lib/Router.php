@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SOL5;
 
 use SOL5\Router\Middleware\MiddlewareInterface;
+use SOL5\Router\HTTP\Status;
+use SOL5\Router\HTTP\Response;
 use \Exception;
 
 class Router
@@ -38,7 +40,7 @@ class Router
    *  add a router to known routes
    * 
    */
-  private function register(RequestHandler $handler): void
+  private function registerRoute(RequestHandler $handler): void
   {
     foreach ($this->m_handlers as $registered_handler) {
       if ($registered_handler->URL() === $handler->URL()) {
@@ -89,7 +91,7 @@ class Router
     $errorResponse = new Response([
       'message' => $error->getMessage(),
       'trace'   => $error->getTraceAsString(),
-    ], 500);
+    ], Status::INTERNALSERVERERROR);
 
     $this->returnResponse($errorResponse);
   }
@@ -140,18 +142,18 @@ class Router
         return;
       }
 
-      http_response_code(404);
+      http_response_code(Status::NOTFOUND);
     }
   }
 
   /**
    *  register a new route with the HTTP method of GET
    */
-  public function get(string $url, $callback): void
+  public function register(string $method, string $url, $callback): void
   {
-    $handler = new RequestHandler('GET', $url, $callback);
+    $handler = new RequestHandler($method, $url, $callback);
     try {
-      $this->register($handler);
+      $this->registerRoute($handler);
     } catch (Exception $e) {
       $this->errorResponse($e);
       exit();

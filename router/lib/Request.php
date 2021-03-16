@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SOL5;
+namespace SOL5\Router\HTTP;
 use \Exception;
 
 class Request
@@ -28,6 +28,14 @@ class Request
     $result = [];
 
     parse_str($rawString, $result);
+
+    /**
+     *  sanitize inputs by encoding special characters
+    */
+    foreach ($result as $key => &$value) {
+      $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
     return $result;
   }
 

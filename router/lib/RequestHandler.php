@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SOL5;
 require_once __DIR__ . '/Request.php';
 
-use SOL5\Request;
+use SOL5\Router\HTTP\Request;
+use SOL5\Router\HTTP\Response;
 
 class RequestHandler
 {
