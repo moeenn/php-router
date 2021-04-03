@@ -12,7 +12,7 @@ use SOL5\Router\HTTP\Response;
 $router = new Router();
 
 $router->register('GET', '/', function (Request $request) {
-  $data = $request->data(); 
+  $data = $request->data();
   return new Response($data);
 });
 
@@ -25,8 +25,8 @@ $router->register('GET', '/message', function (Request $request) {
 
 $router->register('GET', '/news', function (Request $request) {
   return new Response([
-    'item_1'  => 'lorem ipsum',
-    'item_2'  => 'delos mae',
+    'lorem ipsum',
+    'delos mae',
   ]);
 });
 

@@ -7,6 +7,7 @@ require_once __DIR__ . '/Request.php';
 
 use SOL5\Router\HTTP\Request;
 use SOL5\Router\HTTP\Response;
+use \Closure;
 
 class RequestHandler
 {
@@ -15,7 +16,7 @@ class RequestHandler
   private $m_callback;
   private array $m_allowed_methods = ['GET', 'POST', 'PUT', 'DELETE'];
 
-  public function __construct(string $method, string $URL, $callback)
+  public function __construct(string $method, string $URL, Closure $callback)
   {
     $method = trim(strtoupper($method));
 

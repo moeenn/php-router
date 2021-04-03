@@ -7,7 +7,9 @@ namespace SOL5;
 use SOL5\Router\Middleware\MiddlewareInterface;
 use SOL5\Router\HTTP\Status;
 use SOL5\Router\HTTP\Response;
+
 use \Exception;
+use \Closure;
 
 class Router
 {
@@ -149,7 +151,7 @@ class Router
   /**
    *  register a new route with the HTTP method of GET
    */
-  public function register(string $method, string $url, $callback): void
+  public function register(string $method, string $url, Closure $callback): void
   {
     $handler = new RequestHandler($method, $url, $callback);
     try {
